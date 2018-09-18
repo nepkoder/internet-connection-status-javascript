@@ -1,0 +1,84 @@
+<head>
+<script src="offline.min.js"></script>
+
+<!--
+Themes:
+<link rel="stylesheet" href="./themes/offline-theme-default.css" />
+<link rel="stylesheet" href="./themes/offline-theme-default-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-hubspot.css" />
+-->
+<link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+
+<link rel="stylesheet" href="offline-theme-default.css" />
+<link rel="stylesheet" href="offline-language-english.css" />
+
+
+<script type="text/javascript">
+      Offline.options = {
+        // to check the connection status immediatly on page load.
+        checkOnLoad: true,
+      
+        // to monitor AJAX requests to check connection.
+        interceptRequests: true,
+      
+        // to automatically retest periodically when the connection is down (set to false to disable).
+        reconnect: {
+          // delay time in seconds to wait before rechecking.
+          initialDelay: 3,
+      
+          // wait time in seconds between retries.
+          delay: 5
+        },
+      
+        // to store and attempt to remake requests which failed while the connection was down.
+        requests: true,
+        game: false
+      };
+
+
+// var run = function(){ 
+//    // only check when state is up, if state is down, reconnect will take over 
+//     if(Offline.state=="up") 
+//             Offline.check();
+//     };
+// setInterval(run, 20000); // check after 20sec
+
+// Offline.on('down',function(){ 
+// alert("connection Down");
+// /**code to handle network down*/ });
+
+
+var delay = 1000;
+
+Offline.on('confirmed-down', function () {
+    console.log('down');
+});
+
+Offline.on('confirmed-up', function () {
+    console.log('up');
+});
+
+setTimeout(function retry() {
+    Offline.check();
+    setTimeout(retry, delay);
+}, delay);
+
+
+      	// console.log(Offline.check());
+
+	// 	Offline.on("up",function () {
+ //    	console.log("connected");
+	// });
+		
+	// 	Offline.on("down", function () {
+ //    console.log("disconnected");
+	// 	});
+
+      </script>
+</head>
+<body>
+</body>
